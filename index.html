@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>FM Item List Generator</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="./style/main.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./js/pdfmake.min.js"></script>
+  <script src="./js/vfs_fonts.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/enc_jan.js"></script>
+</head>
+
+<body>
+  <script>
+    var db = [];
+    $.getJSON("./json/db.json", function(d) {
+      db = d;
+      for (var i in db.groupid) {
+        $("#itemlist").append("<div id=\"group" + i + "\">");
+        $('#group' + i).append("<h3>" + db.groupid[i]);
+      };
+      for (var k in db.item) {
+        $('#group' + db.item[k].groupid).append("<label><input type=\"checkbox\" name=\"item\" value=\"" + k + "\" checked>" + db.item[k].name);
+      };
+    });
+
+    var create = function() {
+      let il = $.extend(true, {}, itemList)
+      il.db = db;
+      il.createPDF();
+    }
+  </script>
+  <form id="info">
+    <h2>設定</h2>
+    <ul id="setting">
+      <li>
+        出力サイズ
+        <input type="radio" name="pagesize" value="a4" checked />A4
+        <input type="radio" name="pagesize" value="b5" />B5
+      </li>
+      <li>
+        納品パターン（加工食品）
+        <input type="radio" name="pattern" value=0 checked />月水金
+        <input type="radio" name="pattern" value=1 />火木土
+      </li>
+    </ul>
+
+    <h2>商品リスト</h2>
+    <div id="itemlist"></div>
+  </form>
+  <button onClick="create()">Create PDF</button>
+</body>
+
+</html>
