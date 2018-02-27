@@ -115,7 +115,6 @@ var itemList = {
 
     // drow border
     for (let i = 0; i < this.dd.content.length; ++i) {
-      console.log(this.dd.content.length);
       let left = this.dd.content[i].columns[0];
       // // left bottom
       left.table.body[left.table.body.length - 1][0].border = [1, 0, 0, 1];
