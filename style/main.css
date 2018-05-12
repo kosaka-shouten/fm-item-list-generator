@@ -1,20 +1,8 @@
 html {
   font-size: 62.5%;
+  padding: 0 5px;
 }
 
 body {
   font-size: 1rem;
-}
-
-#itemlist {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-
-#itemlist div {
-  display: flex;
-  flex-direction: column;
-  width: 17rem;
 }
